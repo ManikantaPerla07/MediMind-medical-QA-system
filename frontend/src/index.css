@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes dotBounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-5px); }
+}
+
+.blink { animation: blink 1s infinite; }
+.fade-in { animation: fadeIn 0.3s ease; }
+.dot1 { animation: dotBounce 1.2s infinite; }
+.dot2 { animation: dotBounce 1.2s infinite 0.2s; }
+.dot3 { animation: dotBounce 1.2s infinite 0.4s; }
