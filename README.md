@@ -18,6 +18,7 @@ Repository: https://github.com/ManikantaPerla07/MediMind-medical-QA-system
 - [Screenshots](#screenshots)
 - [Tech Stack](#tech-stack)
 - [Architecture](#architecture)
+- [Architecture Diagram](#architecture-diagram)
 - [Project Structure](#project-structure)
 - [API Reference](#api-reference)
 - [Environment Variables](#environment-variables)
@@ -121,6 +122,18 @@ Data
 3. BERT extractive stage finds high-signal answer spans.
 4. Flan-T5 stage refines final answer format.
 5. API returns final answer plus confidence and metadata.
+
+## Architecture Diagram
+
+```mermaid
+flowchart LR
+  UI[React Frontend] --> API[FastAPI Backend]
+  API --> R[Retriever TF-IDF]
+  API --> E[Extractor BERT QA]
+  API --> G[Generator Flan-T5]
+  R --> KB[(MedQuAD JSON Corpus)]
+  API --> OUT[Answer + Confidence + Source]
+```
 
 ## Project Structure
 
@@ -314,6 +327,14 @@ Contributions are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) before
 ## Changelog
 
 Release history is tracked in [CHANGELOG.md](CHANGELOG.md).
+
+For each new release, add an entry with:
+
+- Date
+- Added
+- Changed
+- Fixed
+- Notes
 
 ## Roadmap
 

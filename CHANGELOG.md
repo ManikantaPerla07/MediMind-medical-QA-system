@@ -21,3 +21,29 @@ All notable changes to this project are documented in this file.
 ### Notes
 
 - This changelog currently tracks documentation and repo-quality improvements.
+
+---
+
+## Release Template
+
+Copy this block for future updates:
+
+```md
+## YYYY-MM-DD
+
+### Added
+
+-
+
+### Changed
+
+-
+
+### Fixed
+
+-
+
+### Notes
+
+-
+```
