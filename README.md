@@ -4,163 +4,162 @@
 ![Python Version](https://img.shields.io/badge/Python-3.9%2B-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-**MediMind** is an advanced medical question-answering system powered by BioBERT-based retrieval and Flan-T5 text generation. It intelligently processes medical queries, retrieves relevant passages from a comprehensive medical knowledge base, and generates contextually accurate answers with confidence scoring.
+MediMind is a full-stack medical question answering system with a React frontend and FastAPI backend. It uses TF-IDF retrieval over MedQuAD, extractive QA with BERT, and answer refinement with Flan-T5.
 
----
+Live URL: https://medimind-nu.vercel.app/
 
-## 🎯 Features
+Repository: https://github.com/ManikantaPerla07/MediMind-medical-QA-system
 
-- **Intelligent Question Routing**: Automatically detects question type (yes/no, how, factoid, comparison, treatment, list, evidence-based, general)
-- **Hybrid Retrieval System**: TF-IDF based Medical Information Retriever with medical keyword filtering
-- **Multi-Model QA Pipeline**:
-  - **Extraction**: BERT (deepset/bert-base-cased-squad2) for extractive question answering
-  - **Generation**: Flan-T5 for abstractive answer refinement
-- **Specialized Answer Processing**: 
-  - False premise detection for harmful medical claims
-  - Step-by-step formatting for procedural questions
-  - Comparison handling with dual-context retrieval
-  - Confidence-based abstention for low-confidence queries
-- **Comprehensive Medical Dataset**: MedQuAD corpus with 200k+ Q&A pairs from 12 authoritative medical sources
-- **Real-time Health Monitoring**: API health checks with passage count metrics
-- **Full-Stack Application**: React frontend + FastAPI backend with Docker support
-- **CORS-Enabled**: Ready for cross-origin integration
+## Table of Contents
 
----
+- Overview
+- Feature Highlights
+- Resume Highlights
+- Screenshots
+- Tech Stack
+- Architecture
+- Project Structure
+- API Reference
+- Environment Variables
+- Run Locally
+- Docker Deployment
+- Troubleshooting
+- FAQ
+- Safety Notes
+- Contributing
+- Changelog
+- Roadmap
+- Author
+- License
 
-## 🏗️ Architecture
+## Overview
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                    React Frontend                       │
-│        (Interactive Medical Q&A Interface)              │
-└────────────────────┬────────────────────────────────────┘
-                     │ HTTP/REST
-┌────────────────────▼────────────────────────────────────┐
-│                    FastAPI Backend                      │
-│  ┌──────────────┐    ┌──────────────┐   ┌────────────┐ │
-│  │  Retriever   │    │  QA Pipeline │   │   Router   │ │
-│  │  (TF-IDF)    │───▶│  (BERT+T5)   │───▶│ (Routing)  │ │
-│  └──────────────┘    └──────────────┘   └────────────┘ │
-└────────────────────┬────────────────────────────────────┘
-                     │ File System
-┌────────────────────▼────────────────────────────────────┐
-│                 Knowledge Base                          │
-│   ┌─────────────────────────────────────────────────┐  │
-│   │ MedQuAD Dataset (200k+ Medical Q&A Pairs)       │  │
-│   │ - CancerGov Sources                             │  │
-│   │ - GARD Resources                                │  │
-│   │ - GHR Information                               │  │
-│   │ - MPlus Health Topics                           │  │
-│   │ - CDC Guidelines                                │  │
-│   │ - And 7 more medical sources...                 │  │
-│   └─────────────────────────────────────────────────┘  │
-└──────────────────────────────────────────────────────────┘
-```
+MediMind routes medical questions by intent, retrieves relevant medical passages, then generates a final response with confidence metadata. It is designed for practical demos, portfolio presentation, and experimentation with retrieval + generation pipelines.
 
----
+## Feature Highlights
 
-## 📋 Question Types Supported
+- Question routing for 8 query types: yes/no, how, factoid, comparison, treatment, list, evidence, general.
+- Retrieval pipeline using TF-IDF and cosine similarity over MedQuAD passages.
+- Hybrid QA flow:
+  - Extraction model: deepset/bert-base-cased-squad2
+  - Generation model: google/flan-t5-base
+- Confidence-aware response handling, including low-confidence abstention.
+- False-premise checks for harmful claim patterns.
+- React + Vite frontend with Axios API client.
+- FastAPI backend with CORS enabled and health endpoint.
+- Dockerfile included for backend containerized deployment.
 
-| Type | Example | Handling |
-|------|---------|----------|
-| **Yes/No** | "Is smoking harmful?" | Binary + explanation |
-| **How** | "How does insulin regulate blood sugar?" | Step-by-step process |
-| **Factoid** | "What is diabetes?" | Definition-focused answer |
-| **List** | "What are symptoms of COVID-19?" | Bullet-point format |
-| **Comparison** | "Compare aspirin vs ibuprofen" | Dual-context retrieval |
-| **Treatment** | "How to treat a broken arm?" | Treatment-focused answer |
-| **Evidence** | "What studies support this treatment?" | Research-backed answer |
-| **General** | "Tell me about hypertension" | Contextual general answer |
+## Resume Highlights
 
----
+- Built an end-to-end medical QA system using FastAPI, React, and transformer-based NLP models.
+- Implemented retrieval + extractive + generative answer pipeline for medically grounded responses.
+- Processed MedQuAD XML corpus into a searchable JSON knowledge base and serialized retriever artifacts.
+- Added confidence scoring and abstention behavior to reduce risky low-confidence outputs.
+- Delivered deployable architecture with frontend hosting and backend API support.
 
-## 🚀 Quick Start
+Resume-ready one-liner:
 
-### Prerequisites
-- Python 3.9 or higher
-- Docker (optional, for containerized deployment)
-- GPU support recommended (CUDA)
+Developed a full-stack medical question-answering platform using FastAPI, React, and transformer models, combining MedQuAD retrieval with confidence-aware answer generation.
 
-### Installation
+## Screenshots
 
-#### 1. Clone the Repository
-```bash
-git clone https://github.com/ManikantaPerla07/MediMind-medical-QA-system
-cd MediMind-medical-QA-system
-```
+Add screenshots to a folder such as:
 
-#### 2. Create Virtual Environment
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
+- docs/screenshots/
 
-#### 3. Install Dependencies
+Suggested file names:
 
-**Backend:**
-```bash
-cd backend
-pip install -r requirements.txt
-```
+- docs/screenshots/home.png
+- docs/screenshots/answer.png
+- docs/screenshots/history.png
+- docs/screenshots/health.png
 
-**Frontend:**
-```bash
-cd ../frontend
-npm install
-```
+Markdown snippet after adding images:
 
-#### 4. Download & Prepare Data
+```md
+### Home
+![Home](docs/screenshots/home.png)
 
-The system requires the MedQuAD dataset:
-```bash
-cd backend
-python parse_dataset.py  # Converts XML to medquad.json format
-```
+### Answer View
+![Answer](docs/screenshots/answer.png)
 
-This processes the MedQuAD medical Q&A data into a searchable JSON format.
-
----
-
-## 🔧 Configuration & Running
-
-### Backend Setup
-
-#### Initialize the Retriever (One-time)
-```bash
-cd backend
-python startup.py
-```
-This creates `artifacts/retriever.pkl` - a serialized TF-IDF index for fast medical passage retrieval.
-
-#### Start the FastAPI Server
-```bash
-cd backend
-python main.py
-```
-
-Server runs on `http://localhost:8000`
-
-**Available Endpoints:**
-- `GET /health` - System health check with passage count
-- `POST /predict` - Main QA endpoint
-
-### Frontend Setup
-
-```bash
-cd frontend
-npm run dev
-```
-
-Frontend runs on `http://localhost:5173` (Vite default)
-
----
-
-## 📡 API Specification
+### History Panel
+![History](docs/screenshots/history.png)
 
 ### Health Check
-**Endpoint:** `GET /health`
+![Health](docs/screenshots/health.png)
+```
 
-**Response:**
+## Tech Stack
+
+Frontend
+
+- React 19
+- Vite
+- Axios
+- Tailwind CSS + PostCSS
+
+Backend
+
+- Python 3.9+
+- FastAPI
+- Uvicorn
+- Transformers
+- PyTorch
+- scikit-learn
+- NumPy, Pandas
+
+Data
+
+- MedQuAD medical QA corpus (XML -> JSON)
+
+## Architecture
+
+1. Frontend sends user questions to backend API.
+2. Backend retriever fetches top passages from MedQuAD-derived corpus.
+3. BERT extractive stage finds high-signal answer spans.
+4. Flan-T5 stage refines final answer format.
+5. API returns final answer plus confidence and metadata.
+
+## Project Structure
+
+```text
+medical-qa/
+|- backend/
+|  |- main.py
+|  |- model.py
+|  |- retriever.py
+|  |- router.py
+|  |- startup.py
+|  |- parse_dataset.py
+|  |- Dockerfile
+|  |- requirements.txt
+|  |- data/
+|  |- artifacts/
+|  |- MedQuAD/
+|
+|- frontend/
+|  |- src/
+|  |  |- api/qaApi.js
+|  |  |- components/
+|  |- package.json
+|  |- vite.config.js
+|
+|- evaluation/
+|- notebooks/
+|- requirements.txt
+|- package.json
+|- README.md
+```
+
+## API Reference
+
+### GET /health
+
+Returns backend health and loaded corpus size.
+
+Example response:
+
 ```json
 {
   "status": "ok",
@@ -169,17 +168,20 @@ Frontend runs on `http://localhost:5173` (Vite default)
 }
 ```
 
-### Question Prediction
-**Endpoint:** `POST /predict`
+### POST /predict
 
-**Request:**
+Accepts a question and returns generated answer metadata.
+
+Request body:
+
 ```json
 {
   "question": "What are the symptoms of diabetes?"
 }
 ```
 
-**Response:**
+Example response:
+
 ```json
 {
   "final_answer": "Symptoms of diabetes include...",
@@ -192,445 +194,132 @@ Frontend runs on `http://localhost:5173` (Vite default)
 }
 ```
 
-**Response Fields:**
-- `final_answer` (str): The processed answer to display to user
-- `extracted_span` (str): Raw extracted answer from BERT
-- `confidence` (float): 0.0-1.0 confidence score
-- `source` (str): Original passage source
-- `question_type` (str): Detected question type
-- `low_confidence` (bool): True if confidence < typical threshold
-- `very_low_confidence` (bool): True if confidence < 0.001
+## Environment Variables
 
----
+Frontend (optional)
 
-## 📂 Project Structure
+- VITE_API_URL: Backend base URL used by frontend API client.
+- Default fallback: http://localhost:7860
 
-```
-medical-qa/
-├── backend/                          # FastAPI Backend
-│   ├── main.py                       # FastAPI app & endpoints
-│   ├── model.py                      # QA Pipeline (BERT + Flan-T5)
-│   ├── retriever.py                  # TF-IDF Medical Retriever
-│   ├── router.py                     # Question type detection & routing
-│   ├── startup.py                    # Initialize retriever index
-│   ├── parse_dataset.py              # Convert MedQuAD XML to JSON
-│   ├── Dockerfile                    # Docker configuration
-│   ├── requirements.txt               # Python dependencies
-│   ├── README.md                     # Backend-specific docs
-│   ├── data/
-│   │   └── medquad.json              # Processed medical Q&A corpus
-│   ├── artifacts/
-│   │   └── retriever.pkl             # Serialized TF-IDF index
-│   └── MedQuAD/                      # Source medical datasets
-│       └── MedQuAD-master/
-│           ├── 1_CancerGov_QA/       # Cancer.gov Q&A
-│           ├── 2_GARD_QA/            # Genetic & Rare Disease
-│           ├── 3_GHR_QA/             # Genetics Home Reference
-│           ├── 4_MPlus_Health_Topics_QA/
-│           ├── 5_NIDDK_QA/           # Kidney & Digestive
-│           ├── 6_NINDS_QA/           # Neurological
-│           ├── 7_SeniorHealth_QA/    # Age 50+ Health
-│           ├── 8_NHLBI_QA_XML/       # Heart & Blood
-│           ├── 9_CDC_QA/             # CDC Guidelines
-│           ├── 10_MPlus_ADAM_QA/     # Patient Education
-│           ├── 11_MPlusDrugs_QA/     # Medication Info
-│           └── 12_MPlusHerbsSupplements_QA/
-│
-├── frontend/                         # React Frontend
-│   ├── src/
-│   │   ├── main.jsx                  # Entry point
-│   │   ├── App.jsx                   # Main React component
-│   │   ├── App.css                   # Styling
-│   │   ├── index.css                 # Global styles
-│   │   ├── api/
-│   │   │   └── qaApi.js              # API client for backend
-│   │   └── components/
-│   │       ├── SearchBar.jsx         # Query input component
-│   │       ├── AnswerCard.jsx        # Answer display component
-│   │       ├── HistoryPanel.jsx      # Chat history sidebar
-│   │       └── ... (other components)
-│   ├── public/                       # Static assets
-│   ├── index.html                    # HTML template
-│   ├── package.json                  # npm dependencies
-│   ├── vite.config.js                # Vite configuration
-│   ├── tailwind.config.js            # Tailwind CSS config
-│   └── postcss.config.js             # PostCSS configuration
-│
-├── notebooks/                        # Jupyter notebooks
-│   └── (exploratory analysis & experimentation)
-│
-├── evaluation/                       # Evaluation scripts
-│   └── (model performance metrics)
-│
-├── package.json                      # Root package config
-├── requirements.txt                  # Root pip dependencies
-└── README.md                         # This file
+Backend
+
+- No mandatory .env variables are required for local run in current code.
+- Optional cache paths can be configured through environment in container/runtime setups.
+
+## Run Locally
+
+```bash
+git clone https://github.com/ManikantaPerla07/MediMind-medical-QA-system
+cd MediMind-medical-QA-system
 ```
 
----
+Install backend dependencies:
 
-## 🧠 Model Components
-
-### 1. Medical Retriever (`retriever.py`)
-- **Algorithm**: TF-IDF with Cosine Similarity
-- **Corpus**: MedQuAD Q&A pairs (200k+ items)
-- **Medical Filter**: Keyword-based filtering (50+ medical terms)
-- **Output**: Top-3 relevant passages
-- **Serialization**: Pickled for fast loading
-
-**Key Features:**
-- Automatic filtering for medical relevance
-- Prevents non-medical content from affecting retrieval
-- Fast inference via pre-computed TF-IDF matrix
-
-### 2. Question Router (`router.py`)
-- **Function**: Classifies question intent
-- **Method**: Rule-based pattern matching
-- **Categories**: 8 question types
-- **Output**: Question type + specialized prompt
-
-**Example Detection:**
-```python
-"Is smoking healthy?" → yes_no
-"How does aspirin work?" → how
-"What are diabetes symptoms?" → list
-"Vitamin C vs Zinc" → comparison
+```bash
+cd backend
+pip install -r requirements.txt
 ```
 
-### 3. QA Pipeline (`model.py`)
-Dual-model approach for robust answers:
+Prepare dataset and retriever (one-time):
 
-#### Extraction Stage (BERT)
-- **Model**: `deepset/bert-base-cased-squad2`
-- **Task**: Extract answer span from context
-- **Output**: Answer text + confidence score (0.0-1.0)
+```bash
+python startup.py
+```
 
-#### Generation Stage (Flan-T5)
-- **Model**: `google/flan-t5-base`
-- **Task**: Refine/generate answer from prompt
-- **Parameters**: 
-  - Max tokens: 200
-  - No repeat n-gram size: 3
+Start backend API (port 7860):
 
-#### Answer Processing
-- **False Premise Detection**: Blocks harmful claims (smoking benefits, etc.)
-- **Low-Confidence Abstention**: Graceful abstention when confidence < 0.001
-- **Special Formatting**:
-  - How questions: 3-step process format
-  - List questions: Bullet-point format
-  - Comparison: Dual-context retrieval
-- **Output Cleaning**: Removes instruction artifacts and meta-text
+```bash
+python main.py
+```
 
----
+Run frontend in a second terminal:
 
-## 💾 Dataset
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-### MedQuAD Corpus Details
-- **Total Size**: 200,000+ Q&A pairs
-- **Sources**: 12 authoritative medical organizations
-- **Format**: JSON (after processing from XML)
-- **Schema**:
-  ```json
-  {
-    "question": "What are the symptoms of diabetes?",
-    "answer": "Common symptoms include...",
-    "source": "NIH MedicineNet"
-  }
-  ```
+## Docker Deployment
 
-### Medical Sources
-1. **CancerGov** - Oncology & cancer-related queries
-2. **GARD** - Genetic and rare diseases
-3. **GHR** - Genetics & hereditary conditions
-4. **MPlus Health Topics** - General health information
-5. **NIDDK** - Kidney, digestive, and metabolic disorders
-6. **NINDS** - Neurological disorders
-7. **SeniorHealth** - Geriatric-specific health info
-8. **NHLBI** - Cardiovascular and respiratory health
-9. **CDC** - Communicable diseases & public health
-10. **MPlus ADAM** - Patient-friendly medical education
-11. **MPlus Drugs** - Medication & drug information
-12. **MPlus Herbs & Supplements** - Alternative medicine
+Build and run backend container:
 
----
-
-## 🐳 Docker Deployment
-
-### Build Docker Image
 ```bash
 cd backend
 docker build -t medimind:latest .
+docker run -p 7860:7860 medimind:latest
 ```
 
-### Run Container
-```bash
-docker run -p 8000:8000 medimind:latest
-```
-
-### Docker Compose (Full Stack)
-```bash
-docker-compose up --build
-```
-
----
-
-## 🧪 Testing & Evaluation
-
-### Example Queries
-
-**Test Case 1: List Question**
-```
-Query: "What are the main symptoms of COVID-19?"
-Expected: Bullet-point list of symptoms
-```
-
-**Test Case 2: Comparison**
-```
-Query: "Compare aspirin and ibuprofen"
-Expected: Dual-context comparison with pros/cons
-```
-
-**Test Case 3: False Premise Detection**
-```
-Query: "Does smoking improve lung health?"
-Expected: "NO: This premise is medically incorrect..."
-```
-
-**Test Case 4: How Question**
-```
-Query: "How does insulin work in the body?"
-Expected: Step-by-step biological explanation
-```
-
-### Running Evaluation
-```bash
-cd evaluation
-python evaluate.py --dataset test_queries.json
-```
-
----
-
-## 🔍 Confidence Scoring
-
-The system provides transparency via confidence metrics:
-
-- **High Confidence** (> 0.75): Reliable, extracted answer
-- **Medium Confidence** (0.3 - 0.75): Contextual, moderate certainty
-- **Low Confidence** (0.001 - 0.3): Partial match, user should verify
-- **Very Low Confidence** (< 0.001): Abstains with disclaimer
-
-**Abstention Logic:**
-```python
-if confidence < 0.001:
-    return "I could not find reliable medical information for this question. 
-            Try rephrasing or asking something more specific."
-```
-
-This prevents spreading potentially harmful misinformation.
-
----
-
-## 📊 Performance Metrics
-
-| Metric | Value | Notes |
-|--------|-------|-------|
-| Corpus Size | 200k+ | MedQuAD passages |
-| Avg Retrieval Time | ~50ms | TF-IDF lookup |
-| Extraction Time | ~200ms | BERT inference |
-| Generation Time | ~100ms | Flan-T5 inference |
-| Total Latency | ~350ms | End-to-end per query |
-| Answer Accuracy | TBD | Benchmark pending |
-
----
-
-## 🛠️ Technologies & Dependencies
-
-### Backend Stack
-- **Framework**: FastAPI (async Python web framework)
-- **ML/NLP**: 
-  - Transformers (BERT + Flan-T5)
-  - PyTorch (deep learning)
-  - Scikit-learn (TF-IDF vectorization)
-- **Server**: Uvicorn (ASGI server)
-- **Data**: Pandas, NumPy
-
-### Frontend Stack
-- **Framework**: React 18+
-- **Build Tool**: Vite (fast bundler)
-- **Styling**: Tailwind CSS
-- **HTTP Client**: Axios
-- **Post-processor**: PostCSS, Autoprefixer
-
-### Full Dependency List
-
-**Backend** ([requirements.txt](backend/requirements.txt)):
-```
-fastapi==0.115.0
-uvicorn==0.32.0
-transformers==4.46.3
-torch==2.4.0
-scikit-learn==1.5.2
-pandas==2.2.3
-requests==2.33.0
-python-multipart==0.0.12
-numpy==2.0.2
-```
-
-**Frontend** ([package.json](frontend/package.json)):
-```json
-{
-  "dependencies": {
-    "axios": "^1.15.0"
-  },
-  "devDependencies": {
-    "tailwindcss": "^4.2.2",
-    "postcss": "^8.5.9",
-    "autoprefixer": "^10.4.27"
-  }
-}
-```
-
----
-
-## 🔐 Safety & Ethical Considerations
-
-### False Premise Detection
-The system actively detects and rejects harmful medical claims:
-- "Does smoking help health?" → Rejected
-- "Can drugs improve performance?" → Rejected
-- "Is vaccine harmful?" → Evaluated against corpus evidence
-
-### Confidence-Based Abstention
-Low-confidence queries trigger disclaimers:
-- Prevents overconfident misinformation
-- Encourages users to consult real medical professionals
-- Transparent about model limitations
-
-### Medical Disclaimer
-**This system is for educational purposes only and should not be used for:**
-- Self-diagnosis
-- Medical treatment decisions
-- Emergency situations
-
-**Always consult a licensed healthcare provider for medical advice.**
-
----
-
-## 🚀 Advanced Usage
-
-### Custom Fine-tuning
-
-To fine-tune on your own medical dataset:
-```bash
-cd backend
-python finetune.py --dataset custom_data.json --epochs 5
-```
-
-### Adding New Data Sources
-
-1. Place XML data in `backend/MedQuAD/`
-2. Update `parse_dataset.py` to include new source
-3. Regenerate `medquad.json`:
-   ```bash
-   python parse_dataset.py
-   ```
-4. Reinitialize retriever:
-   ```bash
-   python startup.py
-   ```
-
-### Switching Models
-
-Edit `backend/model.py`:
-```python
-# Use different BERT variant
-self.qa_pipeline = pipeline("question-answering", 
-                           model="other/bert-variant")
-
-# Use larger Flan-T5
-self.generator = pipeline("text2text-generation",
-                         model="google/flan-t5-large")
-```
-
----
-
-## 📈 Roadmap
-
-- [ ] Multi-language support (Spanish, French, Mandarin)
-- [ ] Fine-tuning on domain-specific medical datasets
-- [ ] Integration with PubMed full-text search
-- [ ] User feedback loop for answer refinement
-- [ ] Conversation history context (multi-turn QA)
-- [ ] Explainability features (highlight retrieved passages)
-- [ ] Mobile app (React Native)
-- [ ] Admin dashboard for monitoring
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Please:
-
-1. Fork the repository
-2. Create feature branch: `git checkout -b feature/your-feature`
-3. Commit changes: `git commit -m 'Add your feature'`
-4. Push to branch: `git push origin feature/your-feature`
-5. Open Pull Request
-
-### Development Setup
-```bash
-# Install dev dependencies
-pip install -r backend/requirements.txt
-pip install pytest pytest-cov black pylint
-
-# Run tests
-pytest tests/
-```
-
----
-
-## 📝 License
-
-This project is licensed under the MIT License - see [LICENSE](LICENSE) file for details.
-
-### Dataset Attribution
-- **MedQuAD**: Available under Creative Commons (CC0 1.0)
-- **Medical Data Sources**: Respective organizations' terms apply
-
----
-
-## 📞 Support & Contact
-
-- **Issues**: [GitHub Issues](https://github.com/ManikantaPerla07/MediMind-medical-QA-system/issues)
-- **Questions**: [GitHub Discussions](https://github.com/ManikantaPerla07/MediMind-medical-QA-system/discussions)
-- **Email**: perlamanikanta02@gmail.com
-
----
-
-## 🙏 Acknowledgments
-
-- **MedQuAD Dataset**: Michael Mrini for the comprehensive medical Q&A corpus
-- **BERT Model**: Hugging Face & Google
-- **Flan-T5 Model**: Google Research
-- **Medical Data Sources**: CancerGov, GARD, NIH, CDC, and partner organizations
-
----
-
-## 📊 Citation
-
-If you use MediMind in research, please cite:
-
-```bibtex
-@software{medimind2024,
-  title={MediMind: Advanced Medical Question Answering System},
-  author={Manikanta Perla},
-  year={2024},
-  url={https://github.com/ManikantaPerla07/MediMind-medical-QA-system}
-}
-```
-
----
-
-**Last Updated**: April 2024  
-**Current Version**: 1.0.0  
-**Status**: Active Development
+The container startup command initializes data artifacts and launches Uvicorn on port 7860.
+
+## Troubleshooting
+
+If backend fails on startup:
+
+- Confirm Python dependencies installed from backend/requirements.txt.
+- Check if model download was interrupted; rerun python startup.py.
+- Ensure enough disk/RAM for transformer model loading.
+
+If /health works but /predict fails:
+
+- Verify retriever artifact exists at backend/artifacts/retriever.pkl.
+- Inspect backend logs for model initialization or inference errors.
+
+If frontend cannot call backend:
+
+- Ensure backend is running on port 7860.
+- Set VITE_API_URL in frontend env for non-localhost deployments.
+- Check browser console/network tab for CORS or URL mismatches.
+
+## FAQ
+
+### Why does first request take longer?
+
+Model loading and cold-start behavior can increase the latency of initial requests.
+
+### Do I need GPU to run this project?
+
+No. CPU works for development. GPU improves inference speed.
+
+### Why are answers sometimes cautious or abstained?
+
+The pipeline includes confidence-based abstention to avoid overconfident low-quality outputs.
+
+## Safety Notes
+
+- This system is for educational and research use.
+- Do not use it for diagnosis, emergency triage, or treatment decisions.
+- Always validate medical information with qualified healthcare professionals.
+
+## Contributing
+
+Contributions are welcome. Please read CONTRIBUTING.md before opening a pull request.
+
+1. Fork the repository.
+2. Create a feature branch.
+3. Commit focused changes.
+4. Open a pull request with test notes.
+
+## Changelog
+
+Release history is tracked in CHANGELOG.md.
+
+## Roadmap
+
+- Multi-language support.
+- Better retrieval ranking and reranking.
+- PubMed-backed evidence enrichment.
+- User feedback loop for answer refinement.
+- Explainability enhancements for sourced passages.
+
+## Author
+
+Manikanta Perla
+
+## License
+
+This project uses the MIT License.
+
+## Medical Disclaimer
+
+MediMind does not replace professional medical advice, diagnosis, or treatment.
