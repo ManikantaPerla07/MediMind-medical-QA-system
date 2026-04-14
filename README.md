@@ -12,25 +12,26 @@ Repository: https://github.com/ManikantaPerla07/MediMind-medical-QA-system
 
 ## Table of Contents
 
-- Overview
-- Feature Highlights
-- Resume Highlights
-- Screenshots
-- Tech Stack
-- Architecture
-- Project Structure
-- API Reference
-- Environment Variables
-- Run Locally
-- Docker Deployment
-- Troubleshooting
-- FAQ
-- Safety Notes
-- Contributing
-- Changelog
-- Roadmap
-- Author
-- License
+- [Overview](#overview)
+- [Feature Highlights](#feature-highlights)
+- [Resume Highlights](#resume-highlights)
+- [Screenshots](#screenshots)
+- [Tech Stack](#tech-stack)
+- [Architecture](#architecture)
+- [Project Structure](#project-structure)
+- [API Reference](#api-reference)
+- [Environment Variables](#environment-variables)
+- [Run Locally](#run-locally)
+- [Docker Deployment](#docker-deployment)
+- [Troubleshooting](#troubleshooting)
+- [FAQ](#faq)
+- [Safety Notes](#safety-notes)
+- [Contributing](#contributing)
+- [Changelog](#changelog)
+- [Roadmap](#roadmap)
+- [Author](#author)
+- [License](#license)
+- [Medical Disclaimer](#medical-disclaimer)
 
 ## Overview
 
@@ -208,6 +209,16 @@ Backend
 
 ## Run Locally
 
+Quick command sequence:
+
+```bash
+git clone https://github.com/ManikantaPerla07/MediMind-medical-QA-system
+cd MediMind-medical-QA-system
+cd backend && pip install -r requirements.txt && python startup.py && python main.py
+# in another terminal:
+cd frontend && npm install && npm run dev
+```
+
 ```bash
 git clone https://github.com/ManikantaPerla07/MediMind-medical-QA-system
 cd MediMind-medical-QA-system
@@ -293,7 +304,7 @@ The pipeline includes confidence-based abstention to avoid overconfident low-qua
 
 ## Contributing
 
-Contributions are welcome. Please read CONTRIBUTING.md before opening a pull request.
+Contributions are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request.
 
 1. Fork the repository.
 2. Create a feature branch.
@@ -302,7 +313,7 @@ Contributions are welcome. Please read CONTRIBUTING.md before opening a pull req
 
 ## Changelog
 
-Release history is tracked in CHANGELOG.md.
+Release history is tracked in [CHANGELOG.md](CHANGELOG.md).
 
 ## Roadmap
 
