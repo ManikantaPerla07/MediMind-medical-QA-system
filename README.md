@@ -10,6 +10,8 @@ Live URL: https://medimind-nu.vercel.app/
 
 Repository: https://github.com/ManikantaPerla07/MediMind-medical-QA-system
 
+Backend: https://huggingface.co/spaces/Manikantaperla/medimind-api/tree/main
+
 ## Table of Contents
 
 - [Overview](#overview)
